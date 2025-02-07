@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import google from "../../assets/image/google-logo.png";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../contexts/AuthProvider";
+import toast from "react-hot-toast";
 
 
 const SignUp = () => {
@@ -18,7 +19,7 @@ const SignUp = () => {
   //
   const handleSignUp = (data) => {
     console.log(data);
-
+    // ei function diye user create kora hobe
     createUser(data.email, data.password).then((result) => {
       const user = result.user;
       //console.log(user);
@@ -26,15 +27,19 @@ const SignUp = () => {
       const userInfos = {
         displayName:data.name,
       }
-
+      //user create korar por data save&update kora hobe
       updateUser(userInfos).then(()=>{
         saveUser(data.name,data.email);
       })
       .catch((error)=>console.log(error));
-    });
+    })
+    .catch((error)=>{
+      console.log(error);
+      toast.error('User SignUp Failed!');
+    })
   };
 
-
+//eikhane api diye database e data post korbe
   const saveUser =(name,email)=>{
     const user ={
       name,
@@ -51,7 +56,8 @@ const SignUp = () => {
     .then((data)=>{
       //console.log(data);
       if(data.acknowledged==true){
-        alert("User Created Successfully Done");
+        //alert("User Created Successfully Done"); toast use as alternate alert
+        toast.success('User Successfully created!');
         navigate("/");
       }
     });

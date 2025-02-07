@@ -15,6 +15,8 @@ const Header = () => {
         <li> <NavLink to="/contact">Contact</NavLink></li> 
         <li> <NavLink to="/visa">Visa</NavLink></li>
         
+     
+
         {
         user?.uid? (
         <>
@@ -78,6 +80,14 @@ const Header = () => {
                 {/* <div className="navbar-end">
                     <a className="btn">Button</a>
                 </div> */}
+
+                 {/* Page content here */}
+                    <label
+                        htmlFor="my-drawer-2"
+                        className="btn btn-primary drawer-button lg:hidden"
+                    >
+                        Open Dashboard
+                    </label>
                 </div>
         </div>
     );
