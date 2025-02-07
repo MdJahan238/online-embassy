@@ -1,0 +1,33 @@
+[
+    {
+    "id": 1,
+    "name": "Passport Submit",
+    "slots": ["9:00 AM - 10:00 AM", "11:00 AM - 12:00 PM", "2:00 PM - 3:00 PM","3:00 PM - 4:00 PM"]
+    },
+    {
+    "id": 2,
+    "name": "Passport Return",
+    "slots": ["9:00 AM - 10:00 AM", "11:00 AM - 12:00 PM", "2:00 PM - 3:00 PM"]
+    },
+    {
+    "id": 3,
+    "name": "Finger Print",
+    "slots": ["9:00 AM - 10:00 AM", "11:00 AM - 12:00 PM", "2:00 PM - 3:00 PM"]
+    },
+    {
+    "id": 4,
+    "name": "Emergency Contact",
+    "slots": ["9:00 AM - 10:00 AM", "11:00 AM - 12:00 PM", "2:00 PM - 3:00 PM"]
+    },
+    {
+    "id": 5,
+    "name": "Medical Report Submit",
+    "slots": ["9:00 AM - 10:00 AM", "11:00 AM - 12:00 PM", "2:00 PM - 3:00 PM"]
+    },
+    {
+    "id": 6,
+    "name": "Interview Reschedule",
+    "slots": ["9:00 AM - 10:00 AM", "11:00 AM - 12:00 PM", "2:00 PM - 3:00 PM"]
+    }
+]
+  
