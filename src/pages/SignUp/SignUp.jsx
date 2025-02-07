@@ -18,20 +18,44 @@ const SignUp = () => {
   //
   const handleSignUp = (data) => {
     console.log(data);
+
     createUser(data.email, data.password).then((result) => {
       const user = result.user;
-      console.log(user);
-      alert("Create User Successfully");
+      //console.log(user);
+      //alert("Create User Successfully"); anoter alert in down
       const userInfos = {
         displayName:data.name,
       }
+
       updateUser(userInfos).then(()=>{
-        navigate("/");
+        saveUser(data.name,data.email);
       })
       .catch((error)=>console.log(error));
     });
   };
 
+
+  const saveUser =(name,email)=>{
+    const user ={
+      name,
+      email,
+    };
+    fetch("http://localhost:3000/users",{
+      method:"POST",
+      headers:{
+        "content-type":"application/json",
+      },
+      body: JSON.stringify(user),
+    })
+    .then((res)=>res.json())
+    .then((data)=>{
+      //console.log(data);
+      if(data.acknowledged==true){
+        alert("User Created Successfully Done");
+        navigate("/");
+      }
+    });
+  };
   return (
     <div>
       <div className="hero bg-base-200 min-h-screen">
