@@ -1,7 +1,7 @@
 import React from 'react';
 import MainButton from '../../../components/MainButton/MainButton';
 
-const AppointmentOption = ({appointmentOption}) => {
+const AppointmentOption = ({appointmentOption,setApointments}) => {
     const {name,slots} =appointmentOption;
     return (
         <div className={"card p-5 w-96 shadow-xl  text-center mx-auto bg-gradient-to-r from-orange-500 via-orange-500 to-red-400"}>
@@ -10,7 +10,9 @@ const AppointmentOption = ({appointmentOption}) => {
                 <p> 
                     {" "}
                     {slots.length} { slots.length >1?"times" : "Time"} spaces Available </p>
-                <MainButton>Get Service</MainButton>
+
+                {/* ============= modal calling ================ */}
+                <label htmlFor="booking-modal" className="btn" onClick={()=>setApointments(appointmentOption)}>Book Appointment</label>
             </div>
         </div>
     );

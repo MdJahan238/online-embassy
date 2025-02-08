@@ -34,11 +34,23 @@ const AllUsers = () => {
 
   const handleDeleteUser = (user) => {
     //console.log(user.name);
-   const agree = window.confirm('Do you want to delete this user?')
+   const agree = window.confirm(`Do you want to delete this ${user?.name}?`)
     if (agree) {
-      console.log("start"); 
-    }
-  };
+      //console.log("start"); 
+      fetch(`http://localhost:3000/users/${user?._id}`,{
+        method:"DELETE",
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.deletedCount>0) {
+          toast.success(`${user?.name} Deleted Successfully`)
+        } 
+        refetch();
+      }).catch(error=>{
+        toast.error("Delete failed")
+      })
+  }
+};
 
   if (isloading){
     return<Loading></Loading>
