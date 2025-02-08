@@ -19,16 +19,16 @@ const VisaAvailableAppointments = ({selectedDate}) => {
 //<-- data fetch korar pore kew appointment ba kono service instant update er jonne uporer system use na kore tanstack query data fetch system e use korbo-->
 //<--(eta diye data view ebong insert-update-delete-fetch hobe) ==> advance method (tanstack query)-->
 
-
+const date = format(selectedDate,"PP");
 const [appointments,setApointments] = useState(null);
 //console.log(appointments);
 
 
 //tanstack query
-const{data: appointmentOptions,isloading}=useQuery({
-    queryKey:["appointmentOptions"],
+const{data: appointmentOptions,refetch,isloading}=useQuery({
+    queryKey:["appointmentOptions",date],
     queryFn:async()=>{
-        const res = await fetch("http://localhost:3000/appointmentOptions");
+        const res = await fetch(`http://localhost:3000/appointmentOptions?date=${date}`)
         const data = await res.json();
         return data;
     },
@@ -45,13 +45,22 @@ if(isloading){
                 <h3 className='text-2xl md:text-3xl'> Visa Appointment on:  
                     {format(selectedDate,"PP")}</h3>
             </div>
+
+            {/* ========== Appointment Option ========= */}
             <div className='grid md:grid-cols-3 gap-4'>
-                { appointmentOptions?.map((option) =>(<AppointmentOption key={option._id} appointmentOption={option} setApointments={setApointments}></AppointmentOption>))}
+                { appointmentOptions?.map((option) =>(
+                    <AppointmentOption key={option._id} 
+                    appointmentOption={option} 
+                    setApointments={setApointments}>
+                    </AppointmentOption>))}
             </div>
 
+            {/* ======= Booking Modal ==========*/}
             {appointments && (<BookingModal 
+            setApointments={setApointments}
             appointments={appointments} 
             selectedDate={selectedDate}
+            refetch={refetch}
             ></BookingModal> 
         )}
             
