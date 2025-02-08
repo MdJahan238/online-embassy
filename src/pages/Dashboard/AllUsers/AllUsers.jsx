@@ -2,9 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { Button } from "react-day-picker";
 import Loading from './../../Shared/Loading/Loading';
+import toast from "react-hot-toast";
 
 const AllUsers = () => {
-  const { data: users, isloading } = useQuery({
+  const { data: users, isloading ,refetch} = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
       const res = await fetch("http://localhost:3000/users");
@@ -12,6 +13,32 @@ const AllUsers = () => {
       return data;
     },
   });
+
+
+
+  const handleMakeAdmin = (id)=>{
+    //console.log("admin",id);
+    fetch(`http://localhost:3000/users/admin/${id}`,{
+      method:"PUT",
+    })
+    .then((res)=>res.json())
+    .then((data)=>{
+      //console.log(data);
+      if(data.modifiedCount>0){
+        toast.success("Make Admin Successful!");
+        refetch();
+      }
+    })
+  }
+
+
+  const handleDeleteUser = (user) => {
+    //console.log(user.name);
+   const agree = window.confirm('Do you want to delete this user?')
+    if (agree) {
+      console.log("start"); 
+    }
+  };
 
   if (isloading){
     return<Loading></Loading>
@@ -41,7 +68,7 @@ const AllUsers = () => {
                 <td>{user?.name}</td>
                 <td>{user?.email}</td>
                 <td>
-                  {user?.role !=='Admin'?(<button className="btn btn-outline btn-info">
+                  {user?.role !=='Admin'?(<button onClick={()=>handleMakeAdmin(user._id)} className="btn btn-outline btn-info">
                     Make Admin
                   </button>):("Already Admin"
                   )}
@@ -49,7 +76,7 @@ const AllUsers = () => {
 
                 <td>
                   {
-                    user?.role !=='Admin' && (<button className="btn btn-outline btn-error">Delete</button>
+                    user?.role !=='Admin' && (<button onClick={()=>handleDeleteUser(user)} className="btn btn-outline btn-error">Delete</button>
                   )}
                 </td>
               </tr>

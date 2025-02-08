@@ -2,11 +2,14 @@ import React, { useContext } from 'react';
 import logo from './../../../assets/image/logo-OnlineEmbassy.png'
 import { NavLink } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider';
+import useAdmin from '../../../hooks/useAdmin';
 
 const Header = () => {
 
     const { user,logOut }=useContext(AuthContext);
     //console.log(users,"from header");
+    //useAdmin("mdjahan@gmail.com");
+    useAdmin(user?.email);
     
 
     const menuItems =(<>
